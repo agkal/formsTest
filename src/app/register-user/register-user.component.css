@@ -1,0 +1,68 @@
+h1{
+  color: blue
+}
+input.ng-invalid{
+  border-left: 5px solid red;
+}
+input.ng-valid{
+  border-left: 5px solid green;
+}
+.red-error{
+  color: red;
+}
+
+.note
+{
+    text-align: center;
+    height: 80px;
+    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+    color: #fff;
+    font-weight: bold;
+    line-height: 80px;
+}
+.form-content
+{
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+}
+.form-control{
+    border-radius:1.5rem;
+}
+.button.ng-invalid{
+  background: #698aad;
+color: #fff;
+}
+
+.btnSubmit:disabled
+{
+    border:none;
+    border-radius:1.5rem;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #6385a8;
+    color: #fff;
+}
+
+
+.btnSubmit
+{
+    border:none;
+    border-radius:1.5rem;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+}
+
+.register-form{
+  background-color: brown;
+  background-image: url('train.jpg');
+
+}
+.page
+{
+  background-color: rgb(175, 169, 174);
+}
