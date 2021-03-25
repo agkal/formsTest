@@ -129,6 +129,26 @@
       "university": "NUST",
       "city": "larkana",
       "id": 13
+    },
+    {
+      "course": "computer",
+      "fullName": "Abdul",
+      "passingYear": "2020",
+      "email": "abdul.ghaffar.abbasi123@gmail.com",
+      "phone": "3029265767",
+      "university": "nust",
+      "city": "islamabad",
+      "id": 14
+    },
+    {
+      "course": "Computer Science",
+      "fullName": "Abdul Ghaffar Kalhoro",
+      "passingYear": "2020",
+      "email": "aaa@gmail.com",
+      "phone": "03026958585",
+      "university": "NUST",
+      "city": "Larkana",
+      "id": 15
     }
   ]
 }

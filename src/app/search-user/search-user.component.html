@@ -1,40 +1,114 @@
-<h3 class="text-center">Registered Trainees</h3>
+<p>
+  Upload file to fill the data
+</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="col-lg-12 table-responsive" #TABLE #table>
-  <div style="padding-bottom: 10px;padding-top: 10px;">
+<input type="file" (change)="onFileChange($event)" />
+
+<br>
+<div *ngIf="willDownload">
+  <a id="download"> Download JSON File </a>
+</div>
+
+<h1 class="text-center">Registered User Data</h1>
+
+<!-- Custom rounded search bars with input group -->
+<div class="col-lg-4 p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+  <div class="input-group">
+    <button type="submit"><i class="fa fa-search"></i></button>
+
+    <input type="text" placeholder="What're you searching for?" aria-describedby="button-addon1"
+      class="form-control border-0 bg-light" name="teamName" [(ngModel)]="teamName" (ngModelChange)="search()">
+  </div>
+</div>
+<!-- End -->
 
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">course</th>
-      <th scope="col">fullName</th>
-      <th scope="col">passingYear</th>
-      <th scope="col">email</th>
-      <th scope="col">phone</th>
-      <th scope="col">university</th>
-      <th scope="col">city</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of collection">
-      <th>{{item.id}}</th>
-      <td>{{item.course}}</td>
-      <td>{{item.fullName}}</td>
-      <td>{{item.passingYear}}</td>
-      <td>{{item.email}}</td>
-      <td>{{item.phone}}</td>
-      <td>{{item.university}}</td>
-      <td>{{item.city}}</td>
-    </tr>
-  </tbody>
-</table>
+
+
 
 <div class="row">
-  <div class="col-sm-12">
-    <button (click)="ExportTOExcel()" class="btn btn-success">ExportTOExcel</button> </div>
-</div>
+  <div class="col-md-8">
 
-</div>
+    <div class="col-lg-12 table-responsive" #TABLE #table>
+      <div style="padding-bottom: 10px;">
+
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th (click)="sort('course')">Course &nbsp; <i class="fa fa-sort"></i></th>
+              <th (click)="sort('fullName')">Full Name &nbsp; <i class="fa fa-sort"></i></th>
+              <th (click)="sort('passingYear')">Passing Year &nbsp; <i class="fa fa-sort"></i></th>
+              <th (click)="sort('email')">Email &nbsp; <i class="fa fa-sort"></i></th>
+              <th (click)="sort('phone')">Phone &nbsp; <i class="fa fa-sort"></i></th>
+              <th (click)="sort('university')">University &nbsp; <i class="fa fa-sort"></i></th>
+              <th (click)="sort('city')">City &nbsp; <i class="fa fa-sort"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tm of team | orderBy: key: reverse | paginate: {itemsPerPage:5, currentPage:p };">
+              <td>{{tm.course}}</td>
+              <td><button class="btn btn-link" (click)="selectPerson($event, tm)">{{tm.fullName }}</button></td>
+              <td>{{tm.passingYear}}</td>
+              <td><a>{{tm.email}}</a></td>
+              <td>{{tm.phone}}</td>
+              <td>{{tm.university}}</td>
+              <td>{{tm.city}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <button (click)="ExportTOExcel()" class="btn btn-success">ExportTOExcel</button>
+          </div>
+        </div>
+        <!--end table here-->
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+
+
+
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th class="text-center">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="row">
+              <div class="col-md-6">
+                <dt>Name</dt>
+                <dd>{{selectedPerson? selectedPerson.fullName : '-'}}</dd>
+                <dt>Course</dt>
+                <dd>{{selectedPerson? selectedPerson.course : '-'}}</dd>
+                <dt>Passing Year</dt>
+                <dd>{{selectedPerson? selectedPerson.passingYear : '-'}}</dd>
+                <dt>Email</dt>
+                <dd>{{selectedPerson? selectedPerson.email : '-'}}</dd>
+              </div>
+              <div class="col-md-6">
+
+                <dt>Phone</dt>
+                <dd>{{selectedPerson? selectedPerson.phone : '-'}}</dd>
+                <dt>University</dt>
+                <dd>{{selectedPerson? selectedPerson.university : '-'}}</dd>
+                <dt>City</dt>
+                <dd>{{selectedPerson? selectedPerson.city : '-'}}</dd>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

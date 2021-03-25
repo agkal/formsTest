@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { TraineeService } from '../trainee.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { RegisterUserComponent } from '../register-user/register-user.component';
+import { AppComponent } from '../app.component';
+
 
 type AOA = any[][];
 
@@ -12,21 +13,41 @@ type AOA = any[][];
 })
 export class SearchUserComponent implements OnInit {
 
-  constructor(private trainee: TraineeService) {
-
-   }
-   collection = {};
+  constructor(appC: AppComponent) {
+    console.warn("app component: ", appC.appData);
+  }
+  p: number = 1;
 
   ngOnInit(): void {
-    this.trainee.getList().subscribe((result) => {
-      console.warn(result);
-      this.collection = result;
-    });
-
-
-
+    this.team = this.myData;
   }
 
+
+  search() {
+    this.ngOnInit();
+    this.teamName = this.teamName.toLocaleLowerCase();
+
+    if (this.teamName == "") {
+
+    } else {
+      console.log(this.teamName.toLocaleLowerCase());
+      this.team = this.team.filter(res => {
+        return res.fullName.toLocaleLowerCase().match(this.teamName) || res.university.toLocaleLowerCase().match(this.teamName)
+          || res.course.toLocaleLowerCase().match(this.teamName) || res.email.toLocaleLowerCase().match(this.teamName)
+          || res.phone.toLocaleLowerCase().match(this.teamName) || String(res.passingYear).match(this.teamName)
+          || res.city.toLocaleLowerCase().match(this.teamName);
+      });
+    }
+  }
+
+  key: string = 'course';
+  reverse: boolean = false;
+
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
+
+  }
 
   @ViewChild('TABLE', { static: false }) TABLE: ElementRef;
   title = 'Excel';
@@ -40,5 +61,52 @@ export class SearchUserComponent implements OnInit {
     XLSX.writeFile(wb, 'ScoreSheet.xlsx');
   }
 
+  selectedPerson: any = null;
+  detailsEnabled: boolean = false;
 
+
+  selectPerson($event, person) {
+    this.selectedPerson = person;
+    this.detailsEnabled = true;
+
+  }
+
+
+
+  /****************************************/
+
+
+  willDownload = false;
+  myData = null;
+
+  onFileChange(ev) {
+    let workBook = null;
+    let jsonData = null;
+    const reader = new FileReader();
+    const file = ev.target.files[0];
+    reader.onload = (event) => {
+      const data = reader.result;
+      workBook = XLSX.read(data, { type: 'binary' });
+      jsonData = workBook.SheetNames.reduce((initial, name) => {
+        const sheet = workBook.Sheets[name];
+        initial[name] = XLSX.utils.sheet_to_json(sheet);
+        return initial;
+      }, {});
+      const dataString = JSON.stringify(jsonData);
+      this.setDownload(dataString);
+      this.myData = jsonData['Sheet1'];
+      this.team = this.myData;
+      console.log("myData:: ", this.myData);
+    }
+    reader.readAsBinaryString(file);
+  }
+
+  setDownload(data) {
+    this.willDownload = true;
+    setTimeout(() => {
+      const el = document.querySelector("#download");
+      el.setAttribute("href", `data:text/json;charset=utf-8,${encodeURIComponent(data)}`);
+      el.setAttribute("download", 'xlsxtojson.json');
+    }, 1000)
+  }
 }

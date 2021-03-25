@@ -30,34 +30,33 @@ export class RegisterUserComponent implements OnInit {
   url = "C:\Users\abdul\Downloads\ScoreSheet.xlsx";
 
   saveSubmit: boolean = false;
-  onSubmit()
-  {
+  onSubmit() {
     //console.warn(data);
-    this.trainee.saveTrainee(this.addTrainee.value).subscribe((result)=>{
+    this.trainee.saveTrainee(this.addTrainee.value).subscribe((result) => {
       console.warn("result is here:", result);
     });
     this.saveSubmit = true;
   }
 
-  get course(){
+  get course() {
     return this.addTrainee.get('course');
   }
-  get fullName(){
+  get fullName() {
     return this.addTrainee.get('fullName');
   }
-  get email(){
+  get email() {
     return this.addTrainee.get('email');
   }
-  get phone(){
+  get phone() {
     return this.addTrainee.get('phone');
   }
-  get university(){
+  get university() {
     return this.addTrainee.get('university');
   }
-  get passingYear(){
+  get passingYear() {
     return this.addTrainee.get('passingYear');
   }
-  get city(){
+  get city() {
     return this.addTrainee.get('city');
   }
 }
