@@ -119,6 +119,16 @@
       "university": "NUST",
       "city": "islamabad",
       "id": 12
+    },
+    {
+      "course": "Computer Science",
+      "fullName": "Abdul Ghaffar",
+      "passingYear": "2020",
+      "email": "abdul2@gmail.com",
+      "phone": "0302926576",
+      "university": "NUST",
+      "city": "larkana",
+      "id": 13
     }
   ]
 }
