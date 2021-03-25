@@ -1,8 +1,12 @@
 # Demo of the project
 ![Register Users](video.gif)
+## Project Description
+In this project, the main focus is on creating registration form that contains validations, routings, server api usages and export to excel files also it contains the search options.
+
 # FormsTest
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+
 
 ## Development server
 
