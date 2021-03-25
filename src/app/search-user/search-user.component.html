@@ -18,7 +18,7 @@
     <button type="submit"><i class="fa fa-search"></i></button>
 
     <input type="text" placeholder="What're you searching for?" aria-describedby="button-addon1"
-      class="form-control border-0 bg-light" name="teamName" [(ngModel)]="teamName" (ngModelChange)="search()">
+      class="form-control border-0 bg-light" name="searchedValue" [(ngModel)]="searchedValue" (ngModelChange)="search()">
   </div>
 </div>
 <!-- End -->
@@ -46,14 +46,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let tm of team | orderBy: key: reverse | paginate: {itemsPerPage:5, currentPage:p };">
-              <td>{{tm.course}}</td>
-              <td><button class="btn btn-link" (click)="selectPerson($event, tm)">{{tm.fullName }}</button></td>
-              <td>{{tm.passingYear}}</td>
-              <td><a>{{tm.email}}</a></td>
-              <td>{{tm.phone}}</td>
-              <td>{{tm.university}}</td>
-              <td>{{tm.city}}</td>
+            <tr *ngFor="let userItem of usersList | orderBy: key: reverse | paginate: {itemsPerPage:5, currentPage:p };">
+              <td>{{userItem.course}}</td>
+              <td><button class="btn btn-link" (click)="selectPerson($event, userItem)">{{userItem.fullName }}</button></td>
+              <td>{{userItem.passingYear}}</td>
+              <td><a>{{userItem.email}}</a></td>
+              <td>{{userItem.phone}}</td>
+              <td>{{userItem.university}}</td>
+              <td>{{userItem.city}}</td>
             </tr>
           </tbody>
         </table>
